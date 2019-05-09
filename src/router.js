@@ -18,5 +18,11 @@ export default new Router({
       name: 'category',
       component: () => import('./views/BestSellersBooks.vue'),
     },
+    {
+      path: '/category/:name/:isbn',
+      name: 'book-details',
+      props: true,
+      component: () => import('./views/BookDetails.vue'),
+    },
   ],
 });
