@@ -11,12 +11,11 @@
         :pagination="pagination"
         :rowKey="record => record.list_name_encoded"
       >
-        <template slot="goBestSellerBooks" slot-scope="text">
-          <a-button
-            @click="goToBestSellerBooks(text)"
-            type="primary"
-            size="small"
-          >Go Best Seller Books ></a-button>
+        <template slot="goBestSellersBooks" slot-scope="text">
+          <a-button @click="goToBestSellersBooks(text)" type="primary" size="small">
+            Go Best Seller Books
+            <a-icon type="right"></a-icon>
+          </a-button>
         </template>
       </a-table>
     </div>
@@ -51,7 +50,7 @@ const columns = [
     title: 'Actions',
     dataIndex: 'list_name_encoded',
     width: '20%',
-    scopedSlots: { customRender: 'goBestSellerBooks' },
+    scopedSlots: { customRender: 'goBestSellersBooks' },
   },
 ];
 
@@ -84,7 +83,7 @@ export default {
           this.loading = false;
         });
     },
-    goToBestSellerBooks(type) {
+    goToBestSellersBooks(type) {
       this.$router.push({ path: `/category/${type}` });
     },
   },
