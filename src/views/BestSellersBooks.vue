@@ -103,7 +103,6 @@ export default {
           if (booksByDate && booksByDate.books && booksByDate.books.length > 0) {
             this.categoryDisplayName = booksByDate.display_name;
 
-            // eslint-disable-next-line arrow-parens
             this.tableData = booksByDate.books.map((book) => ({
               primary_isbn13: book.primary_isbn13,
               rank: book.rank,
