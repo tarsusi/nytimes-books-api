@@ -14,38 +14,13 @@
         v-bind:height="bookDetails.book_image_height"
       >
       <div class="book-information">
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_title_label') }}</div>
-          <div class="info-value">{{bookDetails.title}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_author_label') }}</div>
-          <div class="info-value">{{bookDetails.author}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_description_label') }}</div>
-          <div class="info-value">{{bookDetails.description}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_publisher_label') }}</div>
-          <div class="info-value">{{bookDetails.publisher}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_contributor_label') }}</div>
-          <div class="info-value">{{bookDetails.contributor}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_contributor_note_label') }}</div>
-          <div class="info-value">{{bookDetails.contributor_note}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_isbn10_label') }}</div>
-          <div class="info-value">{{bookDetails.primary_isbn10}}</div>
-        </div>
-        <div class="book-info">
-          <div class="info-title">{{ $t('book_info_isbn13_label') }}</div>
-          <div class="info-value">{{bookDetails.primary_isbn13}}</div>
-        </div>
+        <book-info
+          v-for="bookInfo in bookInfos"
+          :key="bookInfo.name"
+          :title="bookInfo.name"
+          :value="bookInfo.value"
+        ></book-info>
+
         <div class="book-buy-links">
           <div class="book-buy-link-title">{{ $t('book_info_buy_links_title') }}</div>
           <li class="book-buy-link" v-for="link in bookDetails.buy_links" v-bind:key="link.name">
@@ -59,16 +34,53 @@
 
 <script>
 import { getBookDetails } from '@/services/bookApi';
+import BookInfo from '@/components/BookInfo.vue';
+import i18n from '@/common/i18n';
 
 export default {
   data() {
     return {
       bookDetails: this.book,
+      bookInfos: (this.book && this.generateBookInformation(this.book)) || [],
     };
   },
   methods: {
     goBestSellersList() {
       this.$router.push({ path: `/category/${this.$attrs.name}` });
+    },
+    generateBookInformation(book) {
+      if (book) {
+        return [
+          { name: i18n.t('book_info_title_label'), value: book.title },
+          { name: i18n.t('book_info_author_label'), value: book.author },
+          {
+            name: i18n.t('book_info_publisher_label'),
+            value: book.publisher,
+          },
+          {
+            name: i18n.t('book_info_description_label'),
+            value: book.description,
+          },
+          {
+            name: i18n.t('book_info_contributor_label'),
+            value: book.contributor,
+          },
+          {
+            name: i18n.t('book_info_contributor_note_label'),
+            value: book.contributor_note,
+          },
+          {
+            name: i18n.t('book_info_isbn10_label'),
+            value: book.primary_isbn10,
+          },
+          {
+            name: i18n.t('book_info_isbn13_label'),
+            value: book.primary_isbn13,
+          },
+        ];
+      }
+
+      return [];
     },
   },
   mounted() {
@@ -80,12 +92,16 @@ export default {
           this.$router.push('/');
         } else {
           this.bookDetails = bookDetails;
+          this.bookInfos = this.generateBookInformation(bookDetails);
         }
       });
     }
   },
   props: ['book'],
   name: 'book-details',
+  components: {
+    BookInfo,
+  },
 };
 </script>
 
@@ -125,33 +141,6 @@ export default {
       max-width: 750px;
 
       padding: 24px;
-
-      .book-info {
-        display: flex;
-        justify-content: space-between;
-
-        padding: 0 8px 8px;
-
-        &:not(:first-child) {
-          padding-top: 8px;
-        }
-
-        border-bottom: 1px solid #e10963;
-
-        &:nth-child(2n) {
-          background-color: rgba(#b5b5b5, 0.4);
-        }
-
-        .info-title {
-          font-size: 18px;
-          font-weight: bold;
-        }
-
-        .info-value {
-          padding-left: 8px;
-          text-align: right;
-        }
-      }
 
       .book-buy-links {
         padding: 32px 16px;
