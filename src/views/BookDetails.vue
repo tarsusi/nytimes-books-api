@@ -3,7 +3,7 @@
     <div class="go-back-container">
       <a-button type="primary" @click="goBestSellersList">
         <a-icon type="left"/>
-        <span class="go-back-title">Go Best Sellers List</span>
+        <span class="go-back-title">{{ $t('go_best_sellers_books_button_label') }}</span>
       </a-button>
     </div>
     <span class="book-details-title">{{ bookDetails.title }}</span>
@@ -15,39 +15,39 @@
       >
       <div class="book-information">
         <div class="book-info">
-          <div class="info-title">Title</div>
+          <div class="info-title">{{ $t('book_info_title_label') }}</div>
           <div class="info-value">{{bookDetails.title}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">Author</div>
+          <div class="info-title">{{ $t('book_info_author_label') }}</div>
           <div class="info-value">{{bookDetails.author}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">Description</div>
+          <div class="info-title">{{ $t('book_info_description_label') }}</div>
           <div class="info-value">{{bookDetails.description}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">Publisher</div>
+          <div class="info-title">{{ $t('book_info_publisher_label') }}</div>
           <div class="info-value">{{bookDetails.publisher}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">Contributor</div>
+          <div class="info-title">{{ $t('book_info_contributor_label') }}</div>
           <div class="info-value">{{bookDetails.contributor}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">Contributor Note</div>
+          <div class="info-title">{{ $t('book_info_contributor_note_label') }}</div>
           <div class="info-value">{{bookDetails.contributor_note}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">ISBN 10</div>
+          <div class="info-title">{{ $t('book_info_isbn10_label') }}</div>
           <div class="info-value">{{bookDetails.primary_isbn10}}</div>
         </div>
         <div class="book-info">
-          <div class="info-title">ISBN 13</div>
+          <div class="info-title">{{ $t('book_info_isbn13_label') }}</div>
           <div class="info-value">{{bookDetails.primary_isbn13}}</div>
         </div>
         <div class="book-buy-links">
-          <div class="book-buy-link-title">You can buy the books from:</div>
+          <div class="book-buy-link-title">{{ $t('book_info_buy_links_title') }}</div>
           <li class="book-buy-link" v-for="link in bookDetails.buy_links" v-bind:key="link.name">
             <a v-bind:href="link.url" target="_blank" rel="noopener">{{link.name}}</a>
           </li>

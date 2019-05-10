@@ -1,11 +1,21 @@
 <template>
   <div class="best-sellers-books-container">
-    <span
-      class="best-sellers-books-title"
-    >Best Sellers Books {{ categoryDisplayName && `of ${categoryDisplayName}` }}</span>
+    <span class="best-sellers-books-title">
+      {{
+      categoryDisplayName
+      ? $t('best_sellers_books_main_title_with_category', { category: categoryDisplayName })
+      : $t('best_sellers_books_main_title')
+      }}
+    </span>
     <div class="best-sellers-books-date-picker-container">
-      <div class="date-picker-information">Select the date the best sellers list was published</div>
-      <a-date-picker allowClear @change="onDateChange" placeholder="Published Date"/>
+      <div
+        class="date-picker-information"
+      >{{ $t('best_sellers_books_date_picker_information_label') }}</div>
+      <a-date-picker
+        allowClear
+        @change="onDateChange"
+        v-bind:placeholder="this.$t('best_sellers_books_date_picker_placeholder')"
+      />
     </div>
     <div class="best-sellers-books">
       <a-table
@@ -19,7 +29,7 @@
       >
         <template slot="goBookDetails" slot-scope="text, record">
           <a-button @click="goBookDetails(record)" type="primary" size="small">
-            Details
+            {{ $t('go_book_details_button_label') }}
             <a-icon type="right"></a-icon>
           </a-button>
         </template>
@@ -31,34 +41,35 @@
 <script>
 // @ is an alias to /src
 import { getBestSellersBooks } from '@/services/bookApi';
+import i18n from '@/common/i18n';
 
 const columns = [
   {
-    title: 'Rank',
+    title: i18n.t('best_sellers_books_table_column_rank_title'),
     dataIndex: 'rank',
     width: '5%',
   },
   {
-    title: 'Book Title',
+    title: i18n.t('best_sellers_books_table_column_title_title'),
     dataIndex: 'title',
   },
   {
-    title: 'ISBN',
+    title: i18n.t('best_sellers_books_table_column_isbn_title'),
     dataIndex: 'primary_isbn13',
     width: '20%',
   },
   {
-    title: 'Rank Last Week',
+    title: i18n.t('best_sellers_books_table_column_rank_last_week_title'),
     dataIndex: 'rank_last_week',
     width: '10%',
   },
   {
-    title: 'Weeks on List',
+    title: i18n.t('best_sellers_books_table_column_weeks_on_list_title'),
     dataIndex: 'weeks_on_list',
     width: '10%',
   },
   {
-    title: 'Actions',
+    title: i18n.t('best_sellers_books_table_column_actions_title'),
     width: '10%',
     scopedSlots: { customRender: 'goBookDetails' },
   },

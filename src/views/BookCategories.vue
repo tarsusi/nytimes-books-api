@@ -1,6 +1,6 @@
 <template>
   <div class="book-categories-container">
-    <span class="book-categories-title">Book Categories</span>
+    <span class="book-categories-title">{{ $t('book_categories_main_title') }}</span>
     <div class="book-categories">
       <a-table
         bordered
@@ -13,7 +13,7 @@
       >
         <template slot="goBestSellersBooks" slot-scope="text">
           <a-button @click="goToBestSellersBooks(text)" type="primary" size="small">
-            Go Best Seller Books
+            {{ $t('go_best_sellers_books_button_label') }}
             <a-icon type="right"></a-icon>
           </a-button>
         </template>
@@ -25,29 +25,30 @@
 <script>
 // @ is an alias to /src
 import { getBookCategories } from '@/services/bookApi';
+import i18n from '@/common/i18n';
 
 const columns = [
   {
-    title: 'Name',
+    title: i18n.t('book_categories_table_column_name_title'),
     dataIndex: 'display_name',
   },
   {
-    title: 'Oldest Published Data',
+    title: i18n.t('book_categories_table_column_oldest_published_date_title'),
     dataIndex: 'oldest_published_date',
     width: '20%',
   },
   {
-    title: 'Newest Published Data',
+    title: i18n.t('book_categories_table_column_newest_published_date_title'),
     dataIndex: 'newest_published_date',
     width: '20%',
   },
   {
-    title: 'Updated',
+    title: i18n.t('book_categories_table_column_updated_title'),
     dataIndex: 'updated',
     width: '20%',
   },
   {
-    title: 'Actions',
+    title: i18n.t('book_categories_table_column_actions_title'),
     dataIndex: 'list_name_encoded',
     width: '20%',
     scopedSlots: { customRender: 'goBestSellersBooks' },
